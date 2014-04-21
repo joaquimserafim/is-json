@@ -5,7 +5,7 @@
 [![Build Status](https://travis-ci.org/joaquimserafim/is-json.png?branch=master)](https://travis-ci.org/joaquimserafim/is-json)
 
 
-check if a string is a valid JSON string in JavaScript without using Try/Catch
+check if a string is a valid JSON string without using Try/Catch
 
 
 

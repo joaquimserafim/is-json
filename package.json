@@ -1,7 +1,7 @@
 {
   "name": "is-json",
-  "version": "1.0.0",
-  "description": "check if a string is a valid JSON string in JavaScript without using Try/Catch",
+  "version": "1.0.1",
+  "description": "check if a string is a valid JSON string without using Try/Catch",
   "main": "index.js",
   "directories": {
     "test": "test"
