@@ -1,0 +1,26 @@
+{
+  "name": "is-json",
+  "version": "1.0.0",
+  "description": "check if a string is a valid JSON string in JavaScript without using Try/Catch",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "node test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:joaquimserafim/is-json.git"
+  },
+  "keywords": [
+    "JSON",
+    "validation"
+  ],
+  "author": "@joaquimserafim",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joaquimserafim/is-json/issues"
+  },
+  "homepage": "https://github.com/joaquimserafim/is-json"
+}
