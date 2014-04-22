@@ -17,7 +17,7 @@ console.log('Running tests...');
   {a: 12, b: [1,2,3]},// json object
   '{"a":"obja","b":[0,1,2],"c":{"d":"some object"}}'// this will pass
 ].forEach(function (ele, i) {
-  test.equal(isJson(ele), i < 9 ? false : true, 'Only the last element is a valid JSON string');
+  test.equal(i === 8 ? isJson(ele, true) : isJson(ele), i < 8 ? false : true, 'Only the two last elements are a valid JSON');
 });
 
 console.log('finish.');
