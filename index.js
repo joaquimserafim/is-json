@@ -19,7 +19,6 @@ function isJSON (str, pass_object) {
   // https://github.com/douglascrockford/JSON-js/blob/master/json2.js#L451
   return /^[\],:{}\s]*$/
     .test(str
-      .replace(/""/, '"""') // deal with some bad structure ex: "a":"obja""b":[0],
       .replace(/\\["\\\/bfnrtu]/g, '@')
       .replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']')
       .replace(/(?:^|:|,)(?:\s*\[)+/g, ''));
