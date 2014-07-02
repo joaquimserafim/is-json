@@ -3,7 +3,7 @@ var isJSON = require('../');
 
 
 test('performe isJSON verifications', function (t) {
-  t.plan(10);
+  t.plan(14);
 
   t.deepEqual(isJSON(null), false, '`null`, should return false');
   t.deepEqual(isJSON(false), false, '`false`, should return false');
@@ -17,4 +17,9 @@ test('performe isJSON verifications', function (t) {
               'a JSON object `{a: 12, b: [1,2,3]}` but pass the 2 arg as true (check objects too), should return true');
   t.deepEqual(isJSON('{"a":"obja","b":[0,1,2],"c":{"d":"some object"}}'), true,
               '`{"a":"obja","b":[0,1,2],"c":{"d":"some object"}}`, should return true');
+  t.deepEqual(isJSON('1,2,3'), false, '`1,2,3`, should return false');
+  t.deepEqual(isJSON('{1,2,3}'), false, '`{1,2,3}`, should return false');
+  t.deepEqual(isJSON('[{"a": 123}, {1,2,3}}]'), false, '`[{"a": 123, {1,2,3}}]`, should return false');
+  t.deepEqual(isJSON('[{"a": {"aa": [1,2,3,4], "aaa": {"d": 1212}}}, {"b": "test", "c": [1,2,3]}]'),
+                        true, 'complex object should return true');
 });

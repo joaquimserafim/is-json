@@ -1,4 +1,3 @@
-
 function isString (x) {
   var type = Object.prototype.toString.apply(x);
   return type.slice(type.indexOf(' ') + 1, -1) === 'String' && isNaN(Number(x));
@@ -16,10 +15,19 @@ function isJSON (str, pass_object) {
 
   if (!isString(str)) return false;
 
-  // https://github.com/douglascrockford/JSON-js/blob/master/json2.js#L451
-  return /^[\],:{}\s]*$/
-    .test(str
-      .replace(/\\["\\\/bfnrtu]/g, '@')
-      .replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']')
-      .replace(/(?:^|:|,)(?:\s*\[)+/g, ''));
+  if (/^\{(.*?)\}$/.test(str))
+    return /"(.*?)":(.*?)/g.test(str);
+
+  if (/\[(.*?)\]/.test(str)) {
+    str = str.replace(/\s/g, '')
+              .replace(/^\[/, '')
+              .replace(/\]$/, '')
+              .replace(/},{/g, '}\n{')
+              .split(/\n/);
+              console.log(str);
+    return str.map(function (s) { return isJSON(s); })
+              .reduce(function (prev, curr) { return !!curr; });
+  }
+
+  return false;
 }
