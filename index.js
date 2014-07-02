@@ -9,6 +9,7 @@ function isObject (obj) {
 
 
 module.exports = isJSON;
+isJSON.strict = strict;
 
 function isJSON (str, pass_object) {
   if (pass_object && isObject(str)) return true;
@@ -30,4 +31,13 @@ function isJSON (str, pass_object) {
   }
 
   return false;
+}
+
+
+function strict (str) {
+  try {
+   return JSON.parse(str) && true;
+  } catch (ex) {
+    return false;
+  } 
 }

@@ -9,7 +9,7 @@ check if a string is a valid JSON string without using Try/Catch and is a JSON o
 
 
 
-**V1.1**
+**V1.2**
 
 
 isJSON(str*, [passObjects=bool])
@@ -35,3 +35,7 @@ isJSON(str*, [passObjects=bool])
 	  var object = {a: 12, b: [1,2,3]};
 
 	  console.log(isJSON(object, true)); // true
+
+    // can use isJSON.strict (uses try/catch) if wants something more robust
+
+    console.log(isJSON.strict('{\n "config": 123,\n "test": "abcde" \n}')); // true
