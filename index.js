@@ -15,12 +15,13 @@ function isJSON (str, pass_object) {
 
   if (!isString(str)) return false;
 
+  str = str.replace(/\s/g, '').replace(/\n|\r/, '');
+
   if (/^\{(.*?)\}$/.test(str))
     return /"(.*?)":(.*?)/g.test(str);
 
   if (/\[(.*?)\]/.test(str)) {
-    str = str.replace(/\s/g, '')
-              .replace(/^\[/, '')
+    str = str.replace(/^\[/, '')
               .replace(/\]$/, '')
               .replace(/},{/g, '}\n{')
               .split(/\n/);
