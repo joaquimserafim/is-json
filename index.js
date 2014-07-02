@@ -24,7 +24,6 @@ function isJSON (str, pass_object) {
               .replace(/\]$/, '')
               .replace(/},{/g, '}\n{')
               .split(/\n/);
-              console.log(str);
     return str.map(function (s) { return isJSON(s); })
               .reduce(function (prev, curr) { return !!curr; });
   }
