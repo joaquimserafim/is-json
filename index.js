@@ -1,12 +1,4 @@
-function isString (x) {
-  var type = Object.prototype.toString.apply(x);
-  return type.slice(type.indexOf(' ') + 1, -1) === 'String' && isNaN(Number(x));
-}
-
-function isObject (obj) {
-  return obj === Object(obj) && !Array.isArray(obj);
-}
-
+'use strict'
 
 module.exports = isJSON;
 isJSON.strict = strict;
@@ -21,13 +13,13 @@ function isJSON (str, pass_object) {
   if (/^\{(.*?)\}$/.test(str))
     return /"(.*?)":(.*?)/g.test(str);
 
-  if (/\[(.*?)\]/.test(str)) {
-    str = str.replace(/^\[/, '')
-              .replace(/\]$/, '')
-              .replace(/},{/g, '}\n{')
-              .split(/\n/);
-    return str.map(function (s) { return isJSON(s); })
-              .reduce(function (prev, curr) { return !!curr; });
+  if (/^\[(.*?)\]$/.test(str)) {
+    return str.replace(/^\[/, '')
+      .replace(/\]$/, '')
+      .replace(/},{/g, '}\n{')
+      .split(/\n/)
+      .map(function (s) { return isJSON(s); })
+      .reduce(function (prev, curr) { return !!curr; });
   }
 
   return false;
@@ -39,5 +31,14 @@ function strict (str) {
    return JSON.parse(str) && true;
   } catch (ex) {
     return false;
-  } 
+  }
 }
+
+function isString (x) {
+  return Object.prototype.toString.call(x) === '[object String]';
+}
+
+function isObject (obj) {
+  return Object.prototype.toString.call(obj) === '[object Object]';
+}
+
