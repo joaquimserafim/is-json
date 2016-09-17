@@ -27,6 +27,10 @@ function isJSON (str, pass_object) {
 
 
 function strict (str) {
+  if (isObject(str)) {
+    return true;
+  }
+
   try {
    return JSON.parse(str) && true;
   } catch (ex) {
