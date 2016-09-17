@@ -24,5 +24,10 @@ test('performe isJSON verifications', function (assert) {
   assert.deepEqual(isJSON(cobj), true, cobj + ', should return true');
   assert.deepEqual(isJSON(new Date()), false, '`Date`, should return false');
   assert.deepEqual(isJSON.strict('{\n "config": 123,\n "test": "abcde" \n}'), true, '`{\n "config": 123,\n "test": "abcde" \n}`, should return true');
+  assert.deepEqual(
+    isJSON.strict({a: 1}),
+    true,
+    'should return true when passing a js object into `strict`'
+  );
   assert.end();
 });
