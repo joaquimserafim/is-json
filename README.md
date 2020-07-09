@@ -1,6 +1,6 @@
 # is-json
 
-# ATTENTION - use try/catch instead of this lib that provides you a more resilient approach to check if is a JSON object
+## ATTENTION - use try/catch instead that provides you a more resilient approach to check if is a JSON object
 
 <a href="https://nodei.co/npm/is-json/"><img src="https://nodei.co/npm/is-json.png?downloads=true"></a>
 
