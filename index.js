@@ -32,7 +32,7 @@ function strict (str) {
   }
 
   try {
-   return JSON.parse(str) && true;
+   return Boolean(JSON.parse(str));
   } catch (ex) {
     return false;
   }
