@@ -1,43 +1,101 @@
 # is-json
 
-## ATTENTION - use try/catch instead that provides you a more resilient approach to check if is a JSON object
+[![CI](https://github.com/joaquimserafim/is-json/actions/workflows/ci.yml/badge.svg)](https://github.com/joaquimserafim/is-json/actions/workflows/ci.yml)
+[![npm version](https://img.shields.io/npm/v/is-json.svg)](https://www.npmjs.com/package/is-json)
 
-<a href="https://nodei.co/npm/is-json/"><img src="https://nodei.co/npm/is-json.png?downloads=true"></a>
+Check whether a value is a valid JSON object/array (as a string, or a plain
+object) — without writing a `try/catch` on the caller side.
 
-[![Build Status](https://travis-ci.org/joaquimserafim/is-json.png?branch=master)](https://travis-ci.org/joaquimserafim/is-json)
+## Install
 
+```sh
+npm install is-json
+# or
+pnpm add is-json
+# or
+yarn add is-json
+```
 
-check if a string is a valid JSON string without using Try/Catch and is a JSON object
+## Usage
 
+```js
+import isJSON from "is-json";              // ESM
+// const isJSON = require("is-json");      // CJS — same function
 
+isJSON('{"a":1,"b":[1,2,3]}');             // true
+isJSON('[{"a":1}, {"b":2}]');              // true
+isJSON('{"a":"contains } brace"}');        // true (v2 used to fail here)
 
-**V1.2**
+isJSON('not json');                        // false
+isJSON('{a:1}');                           // false (invalid JSON)
+isJSON("");                                // false
+isJSON(null);                              // false
+isJSON(42);                                // false (default rejects non-strings)
+```
 
+### `passObjects` — accept plain objects directly
 
-isJSON(str*, [passObjects=bool])
+```js
+isJSON({ a: 12, b: [1, 2, 3] });           // false (string required)
+isJSON({ a: 12, b: [1, 2, 3] }, true);     // true  (plain object accepted)
 
-*with `passObjects = true` can pass a JSON object in `str`, default to `false`
+isJSON([1, 2, 3], true);                   // false (arrays are not plain objects)
+isJSON(new Date(), true);                  // false (Date is not a plain object)
+isJSON(new Map(), true);                   // false
+```
 
+Only objects whose prototype is `Object.prototype` (or `null`) qualify.
+Arrays, class instances, `Date`, `Map`, etc. are rejected.
 
-	  var isJSON = require('is-json');
+### `isJSON.strict` — accept any valid JSON token
 
-	  var good_json = '{"a":"obja","b":[0,1,2],"c":{"d":"some object"}}';
-	  var bad_json = '{"a":"obja""b":[0,1,2],"c":{"d":"some object"}}';
-	  var str_number = '121212';
+The default `isJSON` only accepts object/array shapes (a deliberate v3
+choice — most callers want "is this a JSON payload"). For full RFC 8259
+validity (scalars at the top level), use `strict`:
 
+```js
+isJSON("42");           // false  — scalar tokens rejected by default
+isJSON.strict("42");    // true   — any valid JSON value
+isJSON.strict("true");  // true
+isJSON.strict("null");  // true
+isJSON.strict('"hi"');  // true
 
-	  console.log(isJSON(good_json)); // true
-      console.log(isJSON(bad_json)); // false
-	  console.log(isJSON(str_number)); // false
+isJSON.strict({ a: 1 }); // true  — plain objects also accepted
+isJSON.strict(123);      // false — non-string, non-plain-object inputs rejected
+```
 
+## API
 
+```ts
+interface IsJSON {
+  (value: unknown, passObjects?: boolean): boolean;
+  strict: (value: unknown) => boolean;
+}
 
-	  // check is an object
+declare const isJSON: IsJSON;
+export default isJSON;
+```
 
-	  var object = {a: 12, b: [1,2,3]};
+## Migrating from v2
 
-	  console.log(isJSON(object, true)); // true
+`isJSON(str, passObjects?)` and `isJSON.strict(str)` keep the same shape
+and the same `require('is-json')` / default-import ergonomics. Behaviour
+changes that may affect you:
 
-    // can use isJSON.strict (uses try/catch) if wants something more robust
+| Scenario | v2 | v3 |
+| --- | --- | --- |
+| `isJSON('[1,2,3]')` | `false` (regex bug) | `true` |
+| `isJSON('{"a":"}"}')` | `false` (regex bug) | `true` |
+| `isJSON('{"msg":"hello world"}')` | brittle | `true` |
+| `isJSON.strict({a:1})` | `true` | `true` (preserved) |
+| `isJSON.strict('null')` | `null` (falsy) | `true` |
+| `isJSON.strict(123)` | `true` (parse coercion) | `false` |
+| `isJSON({...}, true)` accepting class instances | `true` | `false` |
 
-    console.log(isJSON.strict('{\n "config": 123,\n "test": "abcde" \n}')); // true
+The regex-based default validator from v2 has been replaced with a
+`JSON.parse`-based check, eliminating false positives and false negatives
+around braces in strings, whitespace-in-values, and nested arrays.
+
+## License
+
+ISC © [@joaquimserafim](https://github.com/joaquimserafim)
