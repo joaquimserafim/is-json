@@ -58,12 +58,15 @@ describe("isJSON (default path)", () => {
 	});
 
 	describe("rejects JSON-scalar tokens at the top level (deliberate v3 choice)", () => {
-		it.each(['"hello"', "42", "true", "false", "null"])(
-			"rejects scalar token %s",
-			(input) => {
-				expect(isJSON(input)).toBe(false);
-			}
-		);
+		it.each([
+			'"hello"',
+			"42",
+			"true",
+			"false",
+			"null",
+		])("rejects scalar token %s", (input) => {
+			expect(isJSON(input)).toBe(false);
+		});
 	});
 
 	describe("passObjects flag", () => {

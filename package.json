@@ -13,7 +13,11 @@
 			"require": "./dist/index.cjs"
 		}
 	},
-	"files": ["dist", "README.md", "LICENSE"],
+	"files": [
+		"dist",
+		"README.md",
+		"LICENSE"
+	],
 	"engines": {
 		"node": ">=18"
 	},
@@ -27,7 +31,12 @@
 		"test:coverage": "vitest run --coverage",
 		"prepublishOnly": "pnpm typecheck && pnpm lint && pnpm test && pnpm build"
 	},
-	"keywords": ["json", "validation", "is-json", "typescript"],
+	"keywords": [
+		"json",
+		"validation",
+		"is-json",
+		"typescript"
+	],
 	"author": "@joaquimserafim",
 	"license": "ISC",
 	"repository": {
@@ -39,11 +48,11 @@
 	},
 	"homepage": "https://github.com/joaquimserafim/is-json#readme",
 	"devDependencies": {
-		"@biomejs/biome": "^1.9.4",
-		"@types/node": "^22.10.0",
-		"@vitest/coverage-v8": "^2.1.8",
-		"tsup": "^8.3.5",
-		"typescript": "^5.7.2",
-		"vitest": "^2.1.8"
+		"@biomejs/biome": "^2.4.15",
+		"@types/node": "^25.9.1",
+		"@vitest/coverage-v8": "^4.1.7",
+		"tsup": "^8.5.1",
+		"typescript": "^6.0.3",
+		"vitest": "^4.1.7"
 	}
 }
