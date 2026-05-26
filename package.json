@@ -1,29 +1,49 @@
 {
-  "name": "is-json",
-  "version": "2.0.1",
-  "description": "check if a string is a valid JSON string without using Try/Catch",
-  "main": "index.js",
-  "directories": {
-    "test": "test"
-  },
-  "scripts": {
-    "test": "node test"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:joaquimserafim/is-json.git"
-  },
-  "keywords": [
-    "JSON",
-    "validation"
-  ],
-  "author": "@joaquimserafim",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/joaquimserafim/is-json/issues"
-  },
-  "homepage": "https://github.com/joaquimserafim/is-json",
-  "devDependencies": {
-    "tape": "^2.13.1"
-  }
+	"name": "is-json",
+	"version": "3.0.0",
+	"description": "Check if a value is a valid JSON object/array string (or a plain object), without try/catch on the caller side.",
+	"type": "module",
+	"main": "./dist/index.cjs",
+	"module": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js",
+			"require": "./dist/index.cjs"
+		}
+	},
+	"files": ["dist", "README.md", "LICENSE"],
+	"engines": {
+		"node": ">=18"
+	},
+	"scripts": {
+		"build": "tsup",
+		"typecheck": "tsc --noEmit",
+		"lint": "biome check .",
+		"format": "biome check --write .",
+		"test": "vitest run",
+		"test:watch": "vitest",
+		"test:coverage": "vitest run --coverage",
+		"prepublishOnly": "pnpm typecheck && pnpm lint && pnpm test && pnpm build"
+	},
+	"keywords": ["json", "validation", "is-json", "typescript"],
+	"author": "@joaquimserafim",
+	"license": "ISC",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/joaquimserafim/is-json.git"
+	},
+	"bugs": {
+		"url": "https://github.com/joaquimserafim/is-json/issues"
+	},
+	"homepage": "https://github.com/joaquimserafim/is-json#readme",
+	"devDependencies": {
+		"@biomejs/biome": "^1.9.4",
+		"@types/node": "^22.10.0",
+		"@vitest/coverage-v8": "^2.1.8",
+		"tsup": "^8.3.5",
+		"typescript": "^5.7.2",
+		"vitest": "^2.1.8"
+	}
 }
