@@ -1,6 +1,3 @@
 allowBuilds:
-  '@biomejs/biome': set this to true or false
-  esbuild: set this to true or false
-onlyBuiltDependencies:
-  - "@biomejs/biome"
-  - esbuild
+  "@biomejs/biome": true
+  esbuild: true
