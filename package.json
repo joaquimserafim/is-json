@@ -1,16 +1,21 @@
 {
 	"name": "is-json",
-	"version": "3.0.0",
+	"version": "3.0.1",
 	"description": "Check if a value is a valid JSON object/array string (or a plain object), without try/catch on the caller side.",
 	"type": "module",
 	"main": "./dist/index.cjs",
-	"module": "./dist/index.js",
-	"types": "./dist/index.d.ts",
+	"module": "./dist/index.mjs",
+	"types": "./dist/index.d.mts",
 	"exports": {
 		".": {
-			"types": "./dist/index.d.ts",
-			"import": "./dist/index.js",
-			"require": "./dist/index.cjs"
+			"import": {
+				"types": "./dist/index.d.mts",
+				"default": "./dist/index.mjs"
+			},
+			"require": {
+				"types": "./dist/index.d.cts",
+				"default": "./dist/index.cjs"
+			}
 		}
 	},
 	"files": [
@@ -22,7 +27,7 @@
 		"node": ">=18"
 	},
 	"scripts": {
-		"build": "tsup",
+		"build": "tsup && mv dist/index.d.ts dist/index.d.mts",
 		"typecheck": "tsc --noEmit",
 		"lint": "biome check .",
 		"format": "biome check --write .",

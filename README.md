@@ -16,6 +16,20 @@ pnpm add is-json
 yarn add is-json
 ```
 
+## Size
+
+Zero runtime dependencies. What ships in the npm tarball:
+
+| What                                  | Raw      | Gzipped  |
+| ------------------------------------- | -------- | -------- |
+| **ESM runtime** (`index.mjs`)         | 996 B    | 407 B    |
+| **CJS runtime** (`index.cjs`)         | 1 006 B  | 418 B    |
+| **Types** (`.d.mts` / `.d.cts`)       | 2 398 B  | 678 B    |
+| Sourcemaps (debug-only, not loaded)   | 6 598 B  | 1 360 B  |
+
+Only one of the two runtime files is loaded by your bundler / Node, so the
+real cost in your app is a single sub-KB module.
+
 ## Usage
 
 ```js

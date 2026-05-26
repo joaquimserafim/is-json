@@ -10,4 +10,7 @@ export default defineConfig({
 	minify: false,
 	target: "node18",
 	outDir: "dist",
+	outExtension({ format }) {
+		return { js: format === "esm" ? ".mjs" : ".cjs" };
+	},
 });
